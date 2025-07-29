@@ -286,12 +286,12 @@ var ElementorProFrontendConfig = {"ajaxurl":"","nonce":"960539ec51","urls":{"ass
 <script src="js/frontend.min_1.js" id="elementor-pro-frontend-js"></script>
 <script src="js/elements-handlers.min.js" id="pro-elements-handlers-js"></script>
 <script>
-// Fix para o accordion FAQ
 document.addEventListener('DOMContentLoaded', function() {
     const accordionItems = document.querySelectorAll('.e-n-accordion-item summary');
     
     accordionItems.forEach(function(summary) {
         summary.addEventListener('click', function(e) {
+            e.preventDefault();
             const details = this.parentElement;
             const isOpen = details.hasAttribute('open');
             
@@ -305,12 +305,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             // Toggle do accordion atual
-            if (isOpen) {
-                details.removeAttribute('open');
-                this.setAttribute('aria-expanded', 'false');
-            } else {
+            if (!isOpen) {
                 details.setAttribute('open', '');
                 this.setAttribute('aria-expanded', 'true');
+            } else {
+                details.removeAttribute('open');
+                this.setAttribute('aria-expanded', 'false');
             }
         });
     });
